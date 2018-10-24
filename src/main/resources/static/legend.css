@@ -1,0 +1,96 @@
+/*TODO: CSS Description */
+.legend-table {
+    width:500px;
+    margin-left: 42%;
+}
+.bottom-legend-slice {
+    width: 18px;
+    background-size: cover;
+    transform: scale(1, 0.7);
+    height: 31px;
+    background: url(images/legend/slmap.png) no-repeat;
+}
+
+.atm-aquire {
+    background-position: 0px 0px;
+}
+
+.atm-emission {
+    background-position: -20px 0px;
+}
+
+.atm-onus {
+    background-position: -41px 0px;
+}
+
+.ecomm-aquire {
+    background-position: -62px 0px;
+}
+
+.ecomm-emission {
+    background-position: -85px 0px;
+}
+
+.ecomm-onus {
+    background-position: -85px -33px;
+}
+
+.pos-aquire {
+    background-position: 0px -33px;
+}
+
+.pos-emission {
+    background-position: -41px -98px;
+}
+
+.pos-onus {
+    background-position: -20px -98px;
+}
+
+.upi-aquire {
+    background-position: 0px -98px;
+}
+
+.upi-emission {
+    background-position: -85px -66px;
+}
+
+.upi-onus {
+    background-position: -62px -66px;
+}
+
+.visa-aquire {
+    background-position: -42px -66px;
+}
+
+.visa-emission {
+    background-position: -20px -66px;
+}
+
+.visa-onus {
+    background-position: 0px -66px;
+}
+
+.mastercard-aquire {
+    background-position: -62px -33px;
+}
+
+.mastercard-emission {
+    background-position: -41px -33px;
+}
+
+.mastercard-onus {
+    background-position: -20px -33px;
+}
+
+.legend-img-wrapper {
+}
+
+.btm-label-text {
+    font-family: Calibri;
+    font-size: 12px;
+    top: 6px;
+    position: relative;
+    left: 6px;
+
+}
