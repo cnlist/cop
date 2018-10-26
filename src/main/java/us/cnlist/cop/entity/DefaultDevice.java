@@ -1,5 +1,7 @@
 package us.cnlist.cop.entity;
 
+import us.cnlist.cop.entity.converter.DeviceTypeConverter;
+
 import javax.persistence.*;
 import java.io.Serializable;
 import java.util.Date;
@@ -12,6 +14,7 @@ public class DefaultDevice implements Serializable {
     private String name;
     private String description;
     private Date created;
+    private DeviceType type;
 
     public DefaultDevice() {
     }
@@ -53,5 +56,15 @@ public class DefaultDevice implements Serializable {
 
     public void setCreated(Date created) {
         this.created = created;
+    }
+
+    @Column(name = "device_type")
+    @Convert(converter = DeviceTypeConverter.class)
+    public DeviceType getType() {
+        return type;
+    }
+
+    public void setType(DeviceType type) {
+        this.type = type;
     }
 }

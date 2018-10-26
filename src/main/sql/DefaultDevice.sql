@@ -1,6 +1,7 @@
 CREATE SEQUENCE seq_ddev;
 create table Default_Device (
 ID integer not null,
+device_type integer default -1,
 device_name varchar2(1024),
 description varchar2(2048),
 created timestamp
