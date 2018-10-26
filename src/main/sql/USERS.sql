@@ -1,7 +1,6 @@
 CREATE TABLE users
 (
-    id long AUTO_INCREMENT PRIMARY KEY,
-    username VARCHAR(255) NOT NULL,
+    username VARCHAR(255) PRIMARY KEY ,
     password VARCHAR(255) NOT NULL,
     create_time DATETIME DEFAULT "CURRENT_TIMESTAMP"(),
     enabled boolean DEFAULT true ,
