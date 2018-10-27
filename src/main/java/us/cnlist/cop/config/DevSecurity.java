@@ -23,20 +23,7 @@ public class DevSecurity extends WebSecurityConfigurerAdapter {
                         + " from users where username=?")
                 .authoritiesByUsernameQuery("select username, authority "
                         + "from authorities where username=?")
-                .passwordEncoder(new PasswordEncoder() {
-                    @Override
-                    public String encode(CharSequence rawPassword) {
-                        return rawPassword.toString();
-                    }
-
-                    @Override
-                    public boolean matches(CharSequence rawPassword, String encodedPassword) {
-                        return true;
-                    }
-                });
-        auth.inMemoryAuthentication().withUser("user").password("{noop}user").roles("USER");
-        auth.inMemoryAuthentication().withUser("admin").password("{noop}admin").roles("ADMIN");
-        auth.inMemoryAuthentication().withUser("superadmin").password("{noop}superadmin").roles("SUPERADMIN");
+                .passwordEncoder(new BCryptPasswordEncoder());
     }
 
     @Override
