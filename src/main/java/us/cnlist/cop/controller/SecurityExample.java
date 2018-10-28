@@ -1,5 +1,7 @@
 package us.cnlist.cop.controller;
 
+import org.apache.commons.lang3.StringUtils;
+import org.springframework.http.HttpStatus;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
@@ -25,11 +27,25 @@ public class SecurityExample {
         return SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
     }
     @RequestMapping(value = "/register",method = RequestMethod.POST)
-    public void register(@RequestBody UserDto user){
+    public HttpStatus register(@RequestBody UserDto user){
+        if(!isRegisterRequestValid(user)){
+            return HttpStatus.BAD_REQUEST;
+        }
         UserDao userDao= new UserDao();
         userDao.setUsername(user.getUsername());
         userDao.setPassword(passwordEncoder.encode(user.getPassword()));
         userRepository.save(userDao);
+        return HttpStatus.OK;
+    }
+
+    private boolean isRegisterRequestValid(UserDto user){
+        if(StringUtils.isBlank(user.getUsername())||StringUtils.isBlank(user.getPassword())){
+            return false;
+        }
+        if(userRepository.existsById(user.getUsername())){
+            return false;
+        }
+        return true;
     }
 
 }
