@@ -9,7 +9,8 @@ import org.springframework.web.bind.annotation.ResponseBody;
 public class SecurityExample {
     @RequestMapping("/user_info")
     @ResponseBody
-    public String test() {
+    public String  userInfo() {
         return SecurityContextHolder.getContext().getAuthentication().getPrincipal().toString();
     }
+
 }
