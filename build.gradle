@@ -50,6 +50,8 @@ dependencies {
     compile fileTree(dir: 'lib', include: '*.jar')
     compile 'com.h2database:h2:1.4.197'
     //  testCompile('org.springframework.boot:spring-boot-starter-test')
+     compile("com.amazonaws:aws-java-sdk:1.7.1")
+
     configurations.getByName("gwtSdk").exclude group: 'org.eclipse.jetty'
 }
 

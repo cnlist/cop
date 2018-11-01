@@ -27,6 +27,8 @@ public class UserProfileEntity {
     private String phoneNumber;
     @Column
     private String email;
+    @Column
+    private String pguPassword;
 
     public String getUsername() {
         return username;
@@ -98,5 +100,13 @@ public class UserProfileEntity {
 
     public void setEmail(String email) {
         this.email = email;
+    }
+
+    public String getPguPassword() {
+        return pguPassword;
+    }
+
+    public void setPguPassword(String pguPassword) {
+        this.pguPassword = pguPassword;
     }
 }
