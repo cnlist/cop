@@ -9,6 +9,7 @@ import org.moxieapps.gwt.highcharts.client.Lang;
 import us.cnlist.cop.client.base.LeftMenu;
 import us.cnlist.cop.client.base.MainMenu;
 import us.cnlist.cop.client.base.MainTab;
+import us.cnlist.cop.client.base.UserInfoPanel;
 
 public class CopClient extends VLayout implements EntryPoint {
 
@@ -28,7 +29,11 @@ public class CopClient extends VLayout implements EntryPoint {
 
         setWidth100();
         setHeight100();
-        addMember(MainMenu.getInstance());
+        HLayout top = new HLayout();
+        addMember(top);
+        top.setWidth100();
+        top.addMember(UserInfoPanel.getInstance());
+        top.addMember(MainMenu.getInstance());
         HLayout main = new HLayout();
         addMember(main);
         main.addMember(LeftMenu.getInstance());

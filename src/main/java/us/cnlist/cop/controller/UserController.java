@@ -14,8 +14,9 @@ import us.cnlist.cop.repository.UserProfileRepository;
 import us.cnlist.cop.repository.UserRepository;
 import us.cnlist.cop.services.UserManager;
 
-@RestController
+
 @Controller
+@RequestMapping(path = "security")
 public class UserController {
     private final UserRepository userRepository;
     private final AuthoritiesRepository authoritiesRepository;
@@ -33,7 +34,7 @@ public class UserController {
     }
 
 
-    @RequestMapping(value = "/register", method = RequestMethod.POST)
+    @RequestMapping(value = "/user/register", method = RequestMethod.POST)
     public HttpStatus register(@RequestBody UserEntity user, String password) {
         if (!isRegisterRequestValid(user, password)) {
             return HttpStatus.BAD_REQUEST;
@@ -60,7 +61,7 @@ public class UserController {
         return true;
     }
 
-    @RequestMapping("/user_info")
+    @GetMapping(path = "/user_info")
     @ResponseBody
     public UserProfileEntity userInfo() {
         return userManager.getProfile();

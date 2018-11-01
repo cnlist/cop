@@ -6,6 +6,8 @@
     <inherits name='com.google.gwt.user.User'/>
     <inherits name="com.smartgwt.SmartGwt"/>
     <inherits name="org.fusesource.restygwt.RestyGWT"/>
+    <inherits name="us.cnlist.cop.Entity" />
+    <inherits name="us.cnlist.cop.Async" />
     <entry-point class='us.cnlist.cop.client.CopClient'/>
 
 </module>
