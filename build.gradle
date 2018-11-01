@@ -77,6 +77,17 @@ gwt {
 
 }
 
+ task gwtcpy() {
+
+    def gwtOutput = "out/production/classes/static/us.cnlist.cop.CopClient"
+
+    copy {
+        from('build/gwt/out/us.cnlist.cop.CopClient')
+        into gwtOutput
+    }
+
+}
+
 dependencyManagement {
     imports {
         mavenBom "org.springframework.cloud:spring-cloud-dependencies:${springCloudVersion}"
