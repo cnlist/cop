@@ -3,7 +3,6 @@ package us.cnlist.cop.services;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.stereotype.Component;
-import sun.plugin.util.UserProfile;
 import us.cnlist.cop.entity.UserProfileEntity;
 import us.cnlist.cop.repository.UserProfileRepository;
 
@@ -14,10 +13,12 @@ public class UserManager {
     public UserManager(UserProfileRepository userProfileRepository) {
         this.userProfileRepository = userProfileRepository;
     }
-    public UserProfileEntity getProfile(){
+
+    public UserProfileEntity getProfile() {
         return userProfileRepository.findById(getLogin()).get();
     }
-    public String getLogin(){
-      return   ((User)SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername();
+
+    public String getLogin() {
+        return ((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername();
     }
 }
