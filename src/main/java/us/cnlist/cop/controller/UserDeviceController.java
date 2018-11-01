@@ -4,7 +4,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.ResponseBody;
-import us.cnlist.cop.controller.async.Response;
 import us.cnlist.cop.entity.UserDevice;
 
 import java.util.ArrayList;
@@ -16,11 +15,11 @@ public class UserDeviceController {
 
     @GetMapping(path = "/my")
     public @ResponseBody
-    Response<List<UserDevice>> getUserDivices() {
+    List<UserDevice> getUserDivices() {
         List<UserDevice> res = new ArrayList<>();
         res.add(createFakeDevice("Sonoff POW"));
         res.add(createFakeDevice("DEVICE 2"));
-        return new Response<>(res);
+        return res;
     }
 
 

@@ -13,6 +13,6 @@ public interface UserDeviceAsync extends RestService {
 
     @Path("udev/my")
     @GET
-    void getMyDevices(SingleCallback<Response<List<UserDevice>>> callback);
+    void getMyDevices(SingleCallback<List<UserDevice>> callback);
 
 }

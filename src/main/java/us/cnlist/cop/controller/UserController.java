@@ -2,12 +2,9 @@ package us.cnlist.cop.controller;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import sun.plugin.util.UserProfile;
-import us.cnlist.cop.controller.async.Response;
 import us.cnlist.cop.controller.async.Status;
 import us.cnlist.cop.entity.AuthorityDao;
 import us.cnlist.cop.entity.UserEntity;
@@ -37,7 +34,7 @@ public class UserController {
 
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public Response register(@RequestBody UserEntity user, String password) {
+    public Status register(@RequestBody UserEntity user, String password) {
         try {
             if (!isRegisterRequestValid(user, password)) {
                 throw new IllegalArgumentException();
@@ -51,10 +48,9 @@ public class UserController {
             userRepository.save(user);
             authoritiesRepository.save(authorityDao);
             userProfileRepository.save(userProfileEntity);
-            return new Response(Status.OK);
-        }
-        catch (Exception e){
-            return Response.createErrorResponse(e);
+            return Status.OK;
+        } catch (Exception e) {
+            return Status.ERROR;
         }
 
     }
@@ -71,25 +67,20 @@ public class UserController {
 
     @RequestMapping("/user_info")
     @ResponseBody
-    public Response<UserProfileEntity> userInfo() {
-        try {
-            return new Response<>(userManager.getProfile(),Status.OK);
-        }
-        catch (Exception e){
-            return Response.createErrorResponse(e);
-        }
+    public UserProfileEntity userInfo() {
+        return userManager.getProfile();
     }
 
     @RequestMapping("/update_profile")
-    public Response updateProfile(@RequestBody UserProfileEntity userProfileEntity) {
+    public Status updateProfile(@RequestBody UserProfileEntity userProfileEntity) {
         try {
             if (!userManager.getLogin().equals(userProfileEntity.getUsername())) {
                 throw new IllegalArgumentException();
             }
             userProfileRepository.save(userProfileEntity);
-            return Response.OK;
+            return Status.OK;
         } catch (Exception e) {
-            return Response.createErrorResponse(e);
+            return Status.ERROR;
         }
 
     }
