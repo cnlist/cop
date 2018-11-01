@@ -13,7 +13,8 @@ public class UserDevice extends BelongsToUser {
     private Integer defaultDeviceId;
     @Column
     private String deviceId;
-
+    @JoinColumn(name = "id", table = "DEVICE_GROUP")
+    private Integer groupId;
     public String getUserDeviceName() {
         return userDeviceName;
     }
@@ -36,5 +37,13 @@ public class UserDevice extends BelongsToUser {
 
     public void setDeviceId(String deviceId) {
         this.deviceId = deviceId;
+    }
+
+    public Integer getGroupId() {
+        return groupId;
+    }
+
+    public void setGroupId(Integer groupId) {
+        this.groupId = groupId;
     }
 }

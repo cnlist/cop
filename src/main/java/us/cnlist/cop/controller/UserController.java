@@ -2,10 +2,10 @@ package us.cnlist.cop.controller;
 
 import org.apache.commons.lang3.StringUtils;
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import us.cnlist.cop.controller.async.Status;
 import us.cnlist.cop.entity.AuthorityDao;
 import us.cnlist.cop.entity.UserEntity;
 import us.cnlist.cop.entity.UserProfileEntity;
@@ -34,21 +34,26 @@ public class UserController {
     }
 
 
-    @RequestMapping(value = "/user/register", method = RequestMethod.POST)
-    public HttpStatus register(@RequestBody UserEntity user, String password) {
-        if (!isRegisterRequestValid(user, password)) {
-            return HttpStatus.BAD_REQUEST;
+    @PostMapping(path = "/user/register")
+    public @ResponseBody Status register(@RequestBody UserEntity user, String password) {
+        try {
+            if (!isRegisterRequestValid(user, password)) {
+                throw new IllegalArgumentException();
+            }
+            user.setPassword(passwordEncoder.encode(password));
+            AuthorityDao authorityDao = new AuthorityDao();
+            authorityDao.setAuthority(AuthorityDao.Role.USER.getValue());
+            authorityDao.setUsername(user.getUsername());
+            UserProfileEntity userProfileEntity = new UserProfileEntity();
+            userProfileEntity.setUsername(user.getUsername());
+            userRepository.save(user);
+            authoritiesRepository.save(authorityDao);
+            userProfileRepository.save(userProfileEntity);
+            return Status.OK;
+        } catch (Exception e) {
+            return Status.ERROR;
         }
-        user.setPassword(passwordEncoder.encode(password));
-        AuthorityDao authorityDao = new AuthorityDao();
-        authorityDao.setAuthority(AuthorityDao.Role.USER.getValue());
-        authorityDao.setUsername(user.getUsername());
-        UserProfileEntity userProfileEntity = new UserProfileEntity();
-        userProfileEntity.setUsername(user.getUsername());
-        userRepository.save(user);
-        authoritiesRepository.save(authorityDao);
-        userProfileRepository.save(userProfileEntity);
-        return HttpStatus.OK;
+
     }
 
     private boolean isRegisterRequestValid(UserEntity user, String password) {
@@ -68,15 +73,15 @@ public class UserController {
     }
 
     @RequestMapping("/update_profile")
-    public HttpStatus updateProfile(@RequestBody UserProfileEntity userProfileEntity) {
+    public Status updateProfile(@RequestBody UserProfileEntity userProfileEntity) {
         try {
             if (!userManager.getLogin().equals(userProfileEntity.getUsername())) {
                 throw new IllegalArgumentException();
             }
             userProfileRepository.save(userProfileEntity);
-            return HttpStatus.OK;
+            return Status.OK;
         } catch (Exception e) {
-            return HttpStatus.BAD_REQUEST;
+            return Status.ERROR;
         }
 
     }

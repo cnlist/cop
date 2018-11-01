@@ -21,4 +21,8 @@ public class UserManager {
     public String getLogin() {
         return ((User) SecurityContextHolder.getContext().getAuthentication().getPrincipal()).getUsername();
     }
+
+    public boolean contains(String login) {
+        return getLogin().equals(login);
+    }
 }
