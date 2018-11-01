@@ -3,6 +3,6 @@
 <module>
 
     <inherits name="org.fusesource.restygwt.RestyGWT"/>
-    <source path="entity" />
+    <source path="entity"/>
 
 </module>

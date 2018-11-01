@@ -3,6 +3,6 @@
 <module>
 
     <inherits name="org.fusesource.restygwt.RestyGWT"/>
-    <source path="controllers/async" />
+    <source path="controllers/async"/>
 
 </module>

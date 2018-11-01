@@ -1,9 +1,10 @@
 package us.cnlist.cop.entity;
 
-import javax.persistence.*;
+import javax.persistence.Column;
+import javax.persistence.Entity;
 
 @Entity
-public class DeviceGroup extends BelongsToUser{
+public class DeviceGroup extends BelongsToUser {
 
     @Column
     private Integer parentId;

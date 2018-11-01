@@ -28,7 +28,8 @@ public class AuthorityDao {
     public void setAuthority(String authority) {
         this.authority = authority;
     }
-    public  enum Role{
+
+    public enum Role {
         USER("ROLE_USER");
         private String value;
 

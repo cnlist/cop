@@ -6,7 +6,6 @@ import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
 import javax.persistence.Table;
-import javax.ws.rs.DefaultValue;
 import java.util.Date;
 
 @Entity
@@ -18,9 +17,9 @@ public class UserEntity {
     @JsonIgnore
     private String password;
     @Column
-    private Date createTime= new Date();
+    private Date createTime = new Date();
     @Column
-    private boolean enabled=true;
+    private boolean enabled = true;
     @Column
     private String blockReason;
 

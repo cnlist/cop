@@ -9,7 +9,7 @@ import javax.persistence.Converter;
 public class DeviceTypeConverter implements AttributeConverter<DeviceType, Integer> {
     @Override
     public Integer convertToDatabaseColumn(DeviceType attribute) {
-       return attribute.getValue();
+        return attribute.getValue();
     }
 
     @Override

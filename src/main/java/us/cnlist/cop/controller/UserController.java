@@ -69,8 +69,8 @@ public class UserController {
     @RequestMapping("/update_profile")
     public HttpStatus updateProfile(@RequestBody UserProfileEntity userProfileEntity) {
         try {
-            if(!userManager.getLogin().equals(userProfileEntity.getUsername())){
-                throw new  IllegalArgumentException();
+            if (!userManager.getLogin().equals(userProfileEntity.getUsername())) {
+                throw new IllegalArgumentException();
             }
             userProfileRepository.save(userProfileEntity);
             return HttpStatus.OK;

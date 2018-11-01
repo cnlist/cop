@@ -8,7 +8,7 @@ import java.util.Date;
 
 @Entity
 @Table(name = "DEFAULT_DEVICE")
-public class DefaultDevice  implements Serializable {
+public class DefaultDevice implements Serializable {
 
     private Integer id;
     private String name;

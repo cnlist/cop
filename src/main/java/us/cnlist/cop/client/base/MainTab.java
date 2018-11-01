@@ -6,12 +6,12 @@ public class MainTab extends TabSet {
 
     private static MainTab instance;
 
-    private MainTab(){
+    private MainTab() {
         setWidth100();
     }
 
     public static MainTab getInstance() {
-        if (instance==null){
+        if (instance == null) {
             instance = new MainTab();
         }
         return instance;

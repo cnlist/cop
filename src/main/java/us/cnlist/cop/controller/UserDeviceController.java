@@ -17,9 +17,16 @@ public class UserDeviceController {
     public @ResponseBody
     List<UserDevice> getUserDivices() {
         List<UserDevice> res = new ArrayList<>();
-
+        res.add(createFakeDevice("Sonoff POW"));
+        res.add(createFakeDevice("DEVICE 2"));
         return res;
     }
 
+
+    private UserDevice createFakeDevice(String name) {
+        UserDevice dev = new UserDevice();
+        dev.setUserDeviceName(name);
+        return dev;
+    }
 
 }

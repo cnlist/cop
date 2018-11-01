@@ -2,9 +2,9 @@
         "http://gwtproject.org/doctype/2.5.0/gwt-module.dtd">
 <module>
 
-    <inherits name="org.moxieapps.gwt.highcharts.Highcharts" />
+    <inherits name="org.moxieapps.gwt.highcharts.Highcharts"/>
     <inherits name='com.google.gwt.user.User'/>
-    <inherits name="com.smartgwt.SmartGwt" />
+    <inherits name="com.smartgwt.SmartGwt"/>
     <inherits name="org.fusesource.restygwt.RestyGWT"/>
     <entry-point class='us.cnlist.cop.client.CopClient'/>
 

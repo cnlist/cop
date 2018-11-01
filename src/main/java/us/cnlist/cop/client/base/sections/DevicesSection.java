@@ -4,8 +4,8 @@ import com.smartgwt.client.widgets.layout.SectionStackSection;
 
 public class DevicesSection extends SectionStackSection {
 
-   public DevicesSection(){
-       setTitle("Мои устройства");
-   }
+    public DevicesSection() {
+        setTitle("Мои устройства");
+    }
 
 }
