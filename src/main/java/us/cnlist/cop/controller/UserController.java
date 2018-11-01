@@ -6,6 +6,8 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import us.cnlist.cop.controller.async.Response;
+import us.cnlist.cop.controller.async.Status;
 import us.cnlist.cop.entity.AuthorityDao;
 import us.cnlist.cop.entity.UserEntity;
 import us.cnlist.cop.entity.UserProfileEntity;
@@ -34,9 +36,9 @@ public class UserController {
 
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public HttpStatus register(@RequestBody UserEntity user, String password) {
+    public Response register(@RequestBody UserEntity user, String password) {
         if (!isRegisterRequestValid(user, password)) {
-            return HttpStatus.BAD_REQUEST;
+            return Response.createErrorResponse("невалидный запрос");
         }
         user.setPassword(passwordEncoder.encode(password));
         AuthorityDao authorityDao = new AuthorityDao();
@@ -47,7 +49,7 @@ public class UserController {
         userRepository.save(user);
         authoritiesRepository.save(authorityDao);
         userProfileRepository.save(userProfileEntity);
-        return HttpStatus.OK;
+        return new Response(new Status(HttpStatus.OK));
     }
 
     private boolean isRegisterRequestValid(UserEntity user, String password) {

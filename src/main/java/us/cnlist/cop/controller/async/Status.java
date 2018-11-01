@@ -11,6 +11,10 @@ public class Status {
         this.description = description;
     }
 
+    public Status(HttpStatus status) {
+        this.status = status;
+    }
+
     public HttpStatus getStatus() {
         return status;
     }
