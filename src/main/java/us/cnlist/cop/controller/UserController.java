@@ -37,19 +37,25 @@ public class UserController {
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public Response register(@RequestBody UserEntity user, String password) {
-        if (!isRegisterRequestValid(user, password)) {
-            return Response.createErrorResponse("невалидный запрос");
+        try {
+            if (!isRegisterRequestValid(user, password)) {
+                throw new IllegalArgumentException();
+            }
+            user.setPassword(passwordEncoder.encode(password));
+            AuthorityDao authorityDao = new AuthorityDao();
+            authorityDao.setAuthority(AuthorityDao.Role.USER.getValue());
+            authorityDao.setUsername(user.getUsername());
+            UserProfileEntity userProfileEntity = new UserProfileEntity();
+            userProfileEntity.setUsername(user.getUsername());
+            userRepository.save(user);
+            authoritiesRepository.save(authorityDao);
+            userProfileRepository.save(userProfileEntity);
+            return new Response(Status.OK);
         }
-        user.setPassword(passwordEncoder.encode(password));
-        AuthorityDao authorityDao = new AuthorityDao();
-        authorityDao.setAuthority(AuthorityDao.Role.USER.getValue());
-        authorityDao.setUsername(user.getUsername());
-        UserProfileEntity userProfileEntity = new UserProfileEntity();
-        userProfileEntity.setUsername(user.getUsername());
-        userRepository.save(user);
-        authoritiesRepository.save(authorityDao);
-        userProfileRepository.save(userProfileEntity);
-        return new Response(new Status(HttpStatus.OK));
+        catch (Exception e){
+            return Response.createErrorResponse(e);
+        }
+
     }
 
     private boolean isRegisterRequestValid(UserEntity user, String password) {
@@ -64,20 +70,25 @@ public class UserController {
 
     @RequestMapping("/user_info")
     @ResponseBody
-    public UserProfileEntity userInfo() {
-        return userManager.getProfile();
+    public Response userInfo() {
+        try {
+            return new Response(userManager.getProfile(),Status.OK);
+        }
+        catch (Exception e){
+            return Response.createErrorResponse(e);
+        }
     }
 
     @RequestMapping("/update_profile")
-    public HttpStatus updateProfile(@RequestBody UserProfileEntity userProfileEntity) {
+    public Response updateProfile(@RequestBody UserProfileEntity userProfileEntity) {
         try {
             if (!userManager.getLogin().equals(userProfileEntity.getUsername())) {
                 throw new IllegalArgumentException();
             }
             userProfileRepository.save(userProfileEntity);
-            return HttpStatus.OK;
+            return Response.OK;
         } catch (Exception e) {
-            return HttpStatus.BAD_REQUEST;
+            return Response.createErrorResponse(e);
         }
 
     }

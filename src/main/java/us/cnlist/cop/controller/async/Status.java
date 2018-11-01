@@ -30,4 +30,6 @@ public class Status {
     public void setDescription(String description) {
         this.description = description;
     }
+    public static Status OK = new Status(HttpStatus.OK);
+    public static Status ERROR= new Status(HttpStatus.BAD_REQUEST);
 }
