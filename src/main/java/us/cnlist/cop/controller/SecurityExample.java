@@ -7,9 +7,8 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
-import us.cnlist.cop.dto.UserDto;
 import us.cnlist.cop.entity.AuthorityDao;
-import us.cnlist.cop.entity.UserDao;
+import us.cnlist.cop.entity.UserEntity;
 import us.cnlist.cop.repository.AuthoritiesRepository;
 import us.cnlist.cop.repository.UserRepository;
 
@@ -34,22 +33,20 @@ public class SecurityExample {
     }
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
-    public HttpStatus register(@RequestBody UserDto user) {
+    public HttpStatus register(@RequestBody UserEntity user, String password) {
         if (!isRegisterRequestValid(user)) {
             return HttpStatus.BAD_REQUEST;
         }
-        UserDao userDao = new UserDao();
-        userDao.setUsername(user.getUsername());
-        userDao.setPassword(passwordEncoder.encode(user.getPassword()));
+        user.setPassword(passwordEncoder.encode(password));
         AuthorityDao authorityDao= new AuthorityDao();
         authorityDao.setAuthority(AuthorityDao.Role.USER.getValue());
         authorityDao.setUsername(user.getUsername());
-        userRepository.save(userDao);
+        userRepository.save(user);
         authoritiesRepository.save(authorityDao);
         return HttpStatus.OK;
     }
 
-    private boolean isRegisterRequestValid(UserDto user) {
+    private boolean isRegisterRequestValid(UserEntity user) {
         if (StringUtils.isBlank(user.getUsername()) || StringUtils.isBlank(user.getPassword())) {
             return false;
         }

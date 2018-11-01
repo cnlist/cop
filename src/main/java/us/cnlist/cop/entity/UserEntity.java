@@ -1,5 +1,7 @@
 package us.cnlist.cop.entity;
 
+import com.fasterxml.jackson.annotation.JsonIgnore;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.Id;
@@ -9,10 +11,11 @@ import java.util.Date;
 
 @Entity
 @Table(name = "USERS")
-public class UserDao {
+public class UserEntity {
     @Id
     private String username;
     @Column
+    @JsonIgnore
     private String password;
     @Column
     private Date createTime= new Date();
