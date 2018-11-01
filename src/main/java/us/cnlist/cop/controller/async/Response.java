@@ -15,6 +15,16 @@ public class Response<T> {
         this.status = status;
     }
 
+    /**
+     * Поставит статус ok
+     *
+     * @param data
+     */
+    public Response(T data) {
+        this.data = data;
+        this.status = Status.OK;
+    }
+
     public Object getData() {
         return data;
     }
