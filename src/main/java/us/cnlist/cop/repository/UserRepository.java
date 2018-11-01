@@ -6,5 +6,4 @@ import us.cnlist.cop.entity.UserEntity;
 import us.cnlist.cop.entity.UserProfileEntity;
 
 public interface UserRepository extends BelongsToUserRepository<UserEntity>, CrudRepository<UserEntity,String>{
-public interface UserRepository extends BelongsToUserRepository<UserEntity, String> {
 }
