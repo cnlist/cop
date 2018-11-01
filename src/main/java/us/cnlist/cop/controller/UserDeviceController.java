@@ -1,25 +1,42 @@
 package us.cnlist.cop.controller;
 
+import org.apache.commons.lang3.StringUtils;
 import org.springframework.stereotype.Controller;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.ResponseBody;
+import org.springframework.web.bind.annotation.*;
+import us.cnlist.cop.controller.async.Status;
 import us.cnlist.cop.entity.UserDevice;
+import us.cnlist.cop.repository.UserDeviceRepository;
+import us.cnlist.cop.services.UserManager;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Controller
-@RequestMapping("udev")
+@RequestMapping("/udev")
 public class UserDeviceController {
+    private final UserManager userManager;
+    private final UserDeviceRepository userDeviceRepository;
+
+    public UserDeviceController(UserManager userManager, UserDeviceRepository userDeviceRepository) {
+        this.userManager = userManager;
+        this.userDeviceRepository = userDeviceRepository;
+    }
+
+    @PostMapping("/add")
+    public @ResponseBody
+    Status add(@RequestBody UserDevice device) {
+        if (StringUtils.isBlank(device.getUsername())) {
+            device.setUsername(userManager.getLogin());
+        } else if (!userManager.contains(device)) {
+            return Status.ERROR;
+        }
+        userDeviceRepository.save(device);
+        return Status.OK;
+    }
 
     @GetMapping(path = "/my")
     public @ResponseBody
     List<UserDevice> getUserDivices() {
-        List<UserDevice> res = new ArrayList<>();
-        res.add(createFakeDevice("Sonoff POW"));
-        res.add(createFakeDevice("DEVICE 2"));
-        return res;
+        return userDeviceRepository.findAllByUsername(userManager.getLogin());
     }
 
 

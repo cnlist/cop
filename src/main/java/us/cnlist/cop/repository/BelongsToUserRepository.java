@@ -1,6 +1,8 @@
 package us.cnlist.cop.repository;
 
+import java.util.List;
+
 public interface BelongsToUserRepository<T> {
 
-    Iterable<T> findAllByUsername(String username);
+    List<T> findAllByUsername(String username);
 }
