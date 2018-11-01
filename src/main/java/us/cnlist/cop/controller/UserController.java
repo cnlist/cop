@@ -16,7 +16,7 @@ import us.cnlist.cop.services.UserManager;
 
 @RestController
 @Controller
-public class SecurityExample {
+public class UserController {
     private final UserRepository userRepository;
     private final AuthoritiesRepository authoritiesRepository;
     private final PasswordEncoder passwordEncoder;
@@ -24,7 +24,7 @@ public class SecurityExample {
     private final UserProfileRepository userProfileRepository;
 
     @Autowired
-    public SecurityExample(UserRepository userRepository, AuthoritiesRepository authoritiesRepository, PasswordEncoder passwordEncoder, UserManager userManager, UserProfileRepository userProfileRepository) {
+    public UserController(UserRepository userRepository, AuthoritiesRepository authoritiesRepository, PasswordEncoder passwordEncoder, UserManager userManager, UserProfileRepository userProfileRepository) {
         this.userRepository = userRepository;
         this.authoritiesRepository = authoritiesRepository;
         this.passwordEncoder = passwordEncoder;
