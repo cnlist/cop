@@ -35,7 +35,7 @@ public class UserDeviceController {
 
     @GetMapping(path = "/my")
     public @ResponseBody
-    List<UserDevice> getUserDivices() {
+    List<UserDevice> getUserDevices() {
         return userDeviceRepository.findAllByUsername(userManager.getLogin());
     }
 
