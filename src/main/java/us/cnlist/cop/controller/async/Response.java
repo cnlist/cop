@@ -2,11 +2,11 @@ package us.cnlist.cop.controller.async;
 
 import org.springframework.http.HttpStatus;
 
-public class Response {
-    private Object data;
+public class Response<T> {
+    private T data;
     private Status status;
 
-    public Response(Object data, Status status) {
+    public Response(T data, Status status) {
         this.data = data;
         this.status = status;
     }
@@ -19,7 +19,7 @@ public class Response {
         return data;
     }
 
-    public void setData(Object data) {
+    public void setData(T data) {
         this.data = data;
     }
 

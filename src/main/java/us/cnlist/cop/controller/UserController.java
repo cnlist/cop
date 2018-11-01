@@ -6,6 +6,7 @@ import org.springframework.http.HttpStatus;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
+import sun.plugin.util.UserProfile;
 import us.cnlist.cop.controller.async.Response;
 import us.cnlist.cop.controller.async.Status;
 import us.cnlist.cop.entity.AuthorityDao;
@@ -70,9 +71,9 @@ public class UserController {
 
     @RequestMapping("/user_info")
     @ResponseBody
-    public Response userInfo() {
+    public Response<UserProfileEntity> userInfo() {
         try {
-            return new Response(userManager.getProfile(),Status.OK);
+            return new Response<>(userManager.getProfile(),Status.OK);
         }
         catch (Exception e){
             return Response.createErrorResponse(e);
