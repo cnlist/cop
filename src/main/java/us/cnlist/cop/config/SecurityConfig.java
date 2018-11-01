@@ -27,10 +27,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter {
 
     @Override
     protected void configure(HttpSecurity http) throws Exception {
-
         http.authorizeRequests()
                 .mvcMatchers("/user_info").access("hasRole('ROLE_USER')")
                 .and().formLogin().defaultSuccessUrl("/", false);
+        http.csrf().disable();
 
     }
 

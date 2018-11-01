@@ -34,7 +34,7 @@ public class SecurityExample {
 
     @RequestMapping(value = "/register", method = RequestMethod.POST)
     public HttpStatus register(@RequestBody UserEntity user, String password) {
-        if (!isRegisterRequestValid(user)) {
+        if (!isRegisterRequestValid(user,password)) {
             return HttpStatus.BAD_REQUEST;
         }
         user.setPassword(passwordEncoder.encode(password));
@@ -46,8 +46,8 @@ public class SecurityExample {
         return HttpStatus.OK;
     }
 
-    private boolean isRegisterRequestValid(UserEntity user) {
-        if (StringUtils.isBlank(user.getUsername()) || StringUtils.isBlank(user.getPassword())) {
+    private boolean isRegisterRequestValid(UserEntity user,String password) {
+        if (StringUtils.isBlank(user.getUsername()) || StringUtils.isBlank(password)) {
             return false;
         }
         if (userRepository.existsById(user.getUsername())) {
