@@ -1,7 +1,5 @@
 package us.cnlist.cop.pgu.mos.api;
 
-import org.apache.http.client.HttpClient;
-import org.apache.http.impl.client.HttpClients;
 import org.springframework.http.HttpEntity;
 import org.springframework.http.HttpHeaders;
 import org.springframework.http.MediaType;
@@ -12,7 +10,6 @@ import org.springframework.web.client.RestTemplate;
 @Component
 public class PguApi {
     private RestTemplate restTemplate = new RestTemplate();
-    private static HttpClient httpclient = HttpClients.createMinimal();
     private static String SIGN_UP = "/v1.0/auth/virtualLogin";
     String guid = "4421a3fb0567714b27dec84d3c3862dc";
     String appVersion = "3.5.0.195 (102)";
